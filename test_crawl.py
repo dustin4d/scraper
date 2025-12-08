@@ -10,12 +10,13 @@ class TestCrawl(unittest.TestCase): # create test obj, inherit from `unittest`'s
         self.assertEqual(actual, expected) # tests whether input given is the same as the normalized URL
 
     def test_get_h1_from_html(self):
-        print("### DEBUG test_get_h1_from_html()` ###")
         input_body = '<html><body><h1>Test Title</h1></body></html>'
         h1 = get_h1_from_html(input_body) # returns the h1 from html input
         expected = "Test Title"
-        self.assertEqual(h1, expected)
-        print("### END DEBUG ###") 
+        self.assertEqual(h1, expected) # Test 1
+        # TODO: Test 2
+        # TODO: Test 3
+
 
     def test_get_first_paragraph_from_html(self):
         pass

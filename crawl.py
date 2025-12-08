@@ -4,7 +4,6 @@ from bs4 import BeautifulSoup
 def normalize_url(url):
     # remove protocol/scheme
     parsed = urlparse(url)
-    print(parsed)
 
     # concat the netloc and the path
     normalized = parsed.netloc + parsed.path
@@ -16,7 +15,7 @@ def normalize_url(url):
 def get_h1_from_html(html):
     # return the text from h1
     data = BeautifulSoup(html, 'html.parser')
-    h1 = data.h1()
+    h1 = data.h1.string
     return h1
 
 
