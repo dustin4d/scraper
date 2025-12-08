@@ -15,8 +15,14 @@ def normalize_url(url):
 
     print("### END DEBUG ###")
 
+
+# EACH FN NEEDS 3 TEST CASES MINIMUM
 def get_h1_from_html(html):
-    pass
+    # return the text from h1
+    data = BeautifulSoup(html, 'html.parser')
+    h1 = data.h1()
+    return h1
+
 
 def get_first_paragraph_from_html(html):
     pass
