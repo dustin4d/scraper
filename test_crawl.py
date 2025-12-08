@@ -9,5 +9,11 @@ class TestCrawl(unittest.TestCase): # create test obj, inherit from `unittest`'s
         expected = "blog.boot.dev/path"
         self.assertEqual(actual, expected) # tests whether input given is the same as the normalized URL
 
+    def test_get_h1_from_html(html):
+        pass
+
+    def test_get_first_paragraph_from_html(html):
+        pass
+
 if __name__ == "__main__":
     unittest.main()
