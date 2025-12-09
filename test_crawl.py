@@ -13,8 +13,9 @@ class TestCrawl(unittest.TestCase): # create test obj, inherit from `unittest`'s
         input_body = '<html><body><h1>Test Title</h1></body></html>'
         h1 = get_h1_from_html(input_body) # returns the h1 from html input
         expected = "Test Title"
-        self.assertEqual(h1, expected) # Test 1
-        # TODO: Test 2
+        self.assertEqual(h1, expected) # Test 1, string match
+        # TODO: Test 2, length
+        self.assertEqual(len(h1), len(expected))
         # TODO: Test 3
 
 
