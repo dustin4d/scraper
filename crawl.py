@@ -22,3 +22,6 @@ def get_first_paragraph_from_html(html):
     data = BeautifulSoup(html, "html.parser")
     actual = data.find("p").get_text()
     return actual
+
+def get_urls_from_base_html(html, base_url):
+    pass
