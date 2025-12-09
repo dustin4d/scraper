@@ -1,5 +1,10 @@
 import unittest     # import python's unit testing framework
-from crawl import normalize_url, get_h1_from_html, get_first_paragraph_from_html     # import functions from `crawl.py`
+from crawl import ( # import functions from `crawl.py`
+    normalize_url,
+    get_h1_from_html,
+    get_first_paragraph_from_html,
+    get_urls_from_html,
+)
 
 class TestCrawl(unittest.TestCase): # create test obj, inherit from `unittest`'s TestCase obj
     # uses the `normalize_url()` fn to test an input URL against a normalized URL `expected`
@@ -33,6 +38,13 @@ class TestCrawl(unittest.TestCase): # create test obj, inherit from `unittest`'s
         self.assertEqual(data, expected)
         self.assertEqual(len(data), len(expected))
         self.assertEqual(data.strip(), expected.strip())
+
+    def test_get_urls_from_html_absolute(self):
+        input_url = "https://blog.boot.dev" # dummy data
+        input_body = '<html><body><a href="https://blog.boot.dev"><span>Boot.dev</span></a></body></html>' # dummy data
+        actual = get_urls_from_html(input_body, input_url)
+        expected = ["https://blog.boot.dev"]
+        self.assertEqual(actual, expected)
 
 
 if __name__ == "__main__":
