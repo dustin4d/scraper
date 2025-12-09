@@ -11,7 +11,6 @@ def normalize_url(url):
 
 
 
-# EACH FN NEEDS 3 TEST CASES MINIMUM
 def get_h1_from_html(html):
     # return the text from h1
     data = BeautifulSoup(html, 'html.parser')
@@ -20,4 +19,6 @@ def get_h1_from_html(html):
 
 
 def get_first_paragraph_from_html(html):
-    pass
+    data = BeautifulSoup(html, "html.parser")
+    actual = data.find("p").get_text()
+    return actual
