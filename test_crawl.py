@@ -4,6 +4,7 @@ from crawl import ( # import functions from `crawl.py`
     get_h1_from_html,
     get_first_paragraph_from_html,
     get_urls_from_html,
+    get_images_from_html,
 )
 
 class TestCrawl(unittest.TestCase): # create test obj, inherit from `unittest`'s TestCase obj
@@ -47,11 +48,11 @@ class TestCrawl(unittest.TestCase): # create test obj, inherit from `unittest`'s
         self.assertEqual(actual, expected)
 
     def test_get_images_from_html_relative(self):
-    input_url = "https://blog.boot.dev"
-    input_body = '<html><body><img src="/logo.png" alt="Logo"></body></html>'
-    actual = get_images_from_html(input_body, input_url)
-    expected = ["https://blog.boot.dev/logo.png"]
-    self.assertEqual(actual, expected)
+        input_url = "https://blog.boot.dev"
+        input_body = '<html><body><img src="/logo.png" alt="Logo"></body></html>'
+        actual = get_images_from_html(input_body, input_url)
+        expected = ["https://blog.boot.dev/logo.png"]
+        self.assertEqual(actual, expected)
 
 if __name__ == "__main__":
     unittest.main()

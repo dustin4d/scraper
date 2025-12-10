@@ -33,4 +33,9 @@ def get_urls_from_html(html, base_url):
     return links # return the list
 
 def get_images_from_html(html, base_url):
-    pass
+    data = BeautifulSoup(html, "html.parser") # get a bs4 object of the HTML tree
+    links = [] # bs4 returns an array of links
+    for link in data.find_all("img"): # find all the image tags
+        links.append(base_url + link.get("src")) # grab the src attribute (rel path)
+
+    return links
