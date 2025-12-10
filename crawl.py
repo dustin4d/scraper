@@ -31,3 +31,6 @@ def get_urls_from_html(html, base_url):
         links.append(link.get('href')) # append the link's href attr to the list
 
     return links # return the list
+
+def get_images_from_html(html, base_url):
+    pass

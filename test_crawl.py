@@ -46,6 +46,12 @@ class TestCrawl(unittest.TestCase): # create test obj, inherit from `unittest`'s
         expected = ["https://blog.boot.dev"]
         self.assertEqual(actual, expected)
 
+    def test_get_images_from_html_relative(self):
+    input_url = "https://blog.boot.dev"
+    input_body = '<html><body><img src="/logo.png" alt="Logo"></body></html>'
+    actual = get_images_from_html(input_body, input_url)
+    expected = ["https://blog.boot.dev/logo.png"]
+    self.assertEqual(actual, expected)
 
 if __name__ == "__main__":
     unittest.main()
