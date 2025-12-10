@@ -46,6 +46,8 @@ class TestCrawl(unittest.TestCase): # create test obj, inherit from `unittest`'s
         actual = get_urls_from_html(input_body, input_url)
         expected = ["https://blog.boot.dev"]
         self.assertEqual(actual, expected)
+        self.assertEqual(len(actual), len(expected))
+        self.assertEqual(actual[:], expected[:]) # robusto tomato split-wise list comparator 🍅
 
     def test_get_images_from_html_relative(self):
         input_url = "https://blog.boot.dev"
@@ -53,6 +55,8 @@ class TestCrawl(unittest.TestCase): # create test obj, inherit from `unittest`'s
         actual = get_images_from_html(input_body, input_url)
         expected = ["https://blog.boot.dev/logo.png"]
         self.assertEqual(actual, expected)
+        self.assertEqual(len(actual), len(expected))
+        self.assertEqual(actual[:], expected[:])
 
 if __name__ == "__main__":
     unittest.main()
