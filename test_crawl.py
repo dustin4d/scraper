@@ -72,6 +72,16 @@ class TestCrawl(unittest.TestCase): # create test obj, inherit from `unittest`'s
         for link in actual:
             self.assertEqual(link.startswith("https://"), expected)
 
+    # is the url from a known site
+    def test_get_urls_from_html_known_ai(self):
+        input_url = "https://blog.boot.dev"
+        input_body = dummy_html
+        actual = get_urls_from_html(input_body, input_url)
+        known_ai = ['https://chatgpt.com/', 'https://claude.ai/', 'https://grok.com/', "https://gemini.com", ]
+        for link in known_ai:
+            self.assertTrue(
+                link in known_ai
+            )
 # Get Images
     def test_get_images_from_html_relative(self):
         input_url = "https://blog.boot.dev"
