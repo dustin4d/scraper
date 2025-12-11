@@ -28,7 +28,6 @@ def get_urls_from_html(html, base_url):
     links = []
     for link in data.find_all('a'): # find all anchor tags in the soup
         links.append(link.get('href')) # append the link's href attr to the list
-
     return links # return the list
 
 def get_images_from_html(html, base_url):
@@ -36,5 +35,5 @@ def get_images_from_html(html, base_url):
     links = [] # bs4 returns an array of links
     for link in data.find_all("img"): # find all the image tags
         links.append(base_url + link.get("src")) # grab the src attribute (rel path)
-
     return links
+
