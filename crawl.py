@@ -10,7 +10,6 @@ def normalize_url(url):
     return normalized
 
 
-
 def get_h1_from_html(html):
     # return the text from h1
     data = BeautifulSoup(html, 'html.parser')

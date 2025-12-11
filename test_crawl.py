@@ -50,5 +50,21 @@ class TestCrawl(unittest.TestCase): # create test obj, inherit from `unittest`'s
         expected = ["https://blog.boot.dev/logo.png"]
         self.assertEqual(actual, expected)
 
+    def test_get_all_links(self):
+        input_body =  """
+        <html>
+            <body>
+                <main>
+                    <a href="https://chatgpt.com/">ChatGPT</a>
+                    <a href="https://claude.ai/">Claude</a>
+                    <a href="https://grok.com/">Grok</a>
+                </main>
+            </body>
+        </html>
+        """
+        actual = get_urls_from_html(input_body, None)
+        expected = ["https://chatgpt.com/", "https://claude.ai/", "https://grok.com/", ]
+        self.assertEqual(actual, expected)
+
 if __name__ == "__main__":
     unittest.main()
