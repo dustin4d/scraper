@@ -51,8 +51,6 @@ class TestCrawl(unittest.TestCase): # create test obj, inherit from `unittest`'s
         expected = "Outside paragraph."
         self.assertEqual(data, expected)
 
-# TODO: run unit tests on `get_urls_from_*` and `get_images_from_*`
-
 # Get URLs
     def test_get_urls_from_html_absolute(self):
         input_url = "https://blog.boot.dev" # dummy data
@@ -89,6 +87,13 @@ class TestCrawl(unittest.TestCase): # create test obj, inherit from `unittest`'s
         actual = get_images_from_html(input_body, input_url)
         expected = ["https://blog.boot.dev/logo.png"]
         self.assertEqual(actual, expected)
+
+    def test_get_images_from_html_amount(self):
+        input_url = "https://blog.boot.dev"
+        input_body = '<html><body><img src="/logo.png" alt="Logo"></body></html>'
+        actual = get_images_from_html(input_body, input_url)
+        expected = 1
+        self.assertEqual(len(actual), expected)
 
     def test_get_all_links(self):
         input_body = dummy_html
