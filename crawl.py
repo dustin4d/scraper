@@ -37,3 +37,5 @@ def get_images_from_html(html, base_url):
         links.append(base_url + link.get("src")) # grab the src attribute (rel path)
     return links
 
+def extract_page_data(html, page_url):
+    pass
