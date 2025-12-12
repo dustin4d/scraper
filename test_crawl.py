@@ -95,6 +95,18 @@ class TestCrawl(unittest.TestCase): # create test obj, inherit from `unittest`'s
         expected = 1
         self.assertEqual(len(actual), expected)
 
+    def test_get_images_from_html_filetype(self): # test for certain filetypes only
+        input_url = "https://blog.boot.dev"
+        input_body = '<html><body><img src="/logo.png" alt="Logo"></body></html>'
+        actual = get_images_from_html(input_body, input_url)
+        expected = {".png", ".jpg", ".jpeg"} # whitelist of filetypes as a set(), so we don't get duplicates
+
+        for file in actual: # for every filetype returned
+            self.assertTrue( # return true/false if
+                file.endswith(tuple(expected)) # filetype ends with any of the extensions allowed
+                # ^ this call to tuple() reads in the `expected` set as a tuple by default
+            )
+
     def test_get_all_links(self):
         input_body = dummy_html
         actual = get_urls_from_html(input_body, None)
