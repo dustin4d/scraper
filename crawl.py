@@ -9,7 +9,6 @@ def normalize_url(url):
     normalized = parsed.netloc + parsed.path
     return normalized
 
-
 def get_h1_from_html(html):
     # return the text from h1
     data = BeautifulSoup(html, 'html.parser')
@@ -24,11 +23,13 @@ def get_first_paragraph_from_html(html):
 
 # return an un-normalized list of all the URLs found within the HTML
 def get_urls_from_html(html, base_url):
+    # TODO: handle relative links -- write a unittest `test_get_urls_from_html_relative`
     data = BeautifulSoup(html, "html.parser")
     links = []
+    # use urljoin
     for link in data.find_all('a'): # find all anchor tags in the soup
-        links.append(link.get('href')) # append the link's href attr to the list
-    return links # return the list
+        links.append(urljoin(base_url, link.get('href'))) # append the link's href attr to the list
+    return links # return the list of links in href tags
 
 def get_images_from_html(html, base_url):
     data = BeautifulSoup(html, "html.parser") # get a bs4 object of the HTML tree
@@ -38,4 +39,14 @@ def get_images_from_html(html, base_url):
     return links
 
 def extract_page_data(html, page_url):
-    pass
+    soup = BeautifulSoup(html, "html.parser")
+
+    data = {
+        "url": page_url,
+        "h1": get_h1_from_html(html),
+        "first_paragraph": get_first_paragraph_from_html(html),
+        "outgoing_links": get_urls_from_html(html, page_url),
+        "image_urls": get_images_from_html(html, page_url),
+    }
+
+    return data

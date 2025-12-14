@@ -5,6 +5,7 @@ from crawl import ( # import functions from `crawl.py`
     get_first_paragraph_from_html,
     get_urls_from_html,
     get_images_from_html,
+    extract_page_data,
 )
 
 dummy_html = """
@@ -60,15 +61,13 @@ class TestCrawl(unittest.TestCase): # create test obj, inherit from `unittest`'s
         self.assertEqual(actual, expected)
 
     # does each link use https
-    def test_get_urls_from_html_https(self):
-        input_url = "https://agents.llms.com"
-        input_body = dummy_html
+    # TODO: finish re-writing this
+    def test_get_urls_from_html_relative(self):
+        input_url = "https://blog.boot.dev"
+        input_body = '<html><body><a href="/post1"></body></html>'
         actual = get_urls_from_html(input_body, input_url)
-        expected = True
-
-        # if any links don't have https, test fails
-        for link in actual:
-            self.assertEqual(link.startswith("https://"), expected)
+        expected = ["https://blog.boot.dev/post1"]
+        self.assertEqual(actual, expected)
 
     # is the url from a known site
     def test_get_urls_from_html_known_ai(self):
@@ -114,6 +113,7 @@ class TestCrawl(unittest.TestCase): # create test obj, inherit from `unittest`'s
         self.assertEqual(actual, expected)
 
 
+    # use all functions from above to load page data into a dict
     def test_extract_page_data_basic(self):
         input_url = "https://blog.boot.dev"
         input_body = '''<html><body>
@@ -121,7 +121,8 @@ class TestCrawl(unittest.TestCase): # create test obj, inherit from `unittest`'s
             <p>This is the first paragraph.</p>
             <a href="/link1">Link 1</a>
             <img src="/image1.jpg" alt="Image 1">
-            </body></html>'''
+            </body></html>
+            '''
         actual = extract_page_data(input_body, input_url)
         expected = {
             "url": "https://blog.boot.dev",
