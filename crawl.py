@@ -1,17 +1,22 @@
 from urllib.parse import urlparse, urljoin
 from bs4 import BeautifulSoup
 
-# 2/3 tests written
+# 3/3 tests written
 def normalize_url(url):
     # remove protocol/scheme
     parsed = urlparse(url)
 
     # concat the netloc and the path
     normalized = parsed.netloc + parsed.path
-    return normalized.lower()
 
+    if url == "":
+        return False
+    else:
+        return normalized.lower()
+
+# 0/3 tests written
 def get_h1_from_html(html):
-    # return the text from h1
+    # return the text from h1, then make the bs4 object into a str
     data = BeautifulSoup(html, 'html.parser')
     h1 = data.h1.string
     return h1

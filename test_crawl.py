@@ -38,11 +38,24 @@ class TestCrawl(unittest.TestCase): # create test obj, inherit from `unittest`'s
         expected = "blog.boot.dev/path"
         self.assertEqual(actual, expected)
 
+    # if input is empty
+    def test_normalize_url_empty(self):
+        input_url = ""
+        actual = normalize_url(input_url)
+        expected = False
+        self.assertEqual(actual, expected)
+
     def test_get_h1_from_html(self):
         input_body = '<html><body><h1>Test Title</h1></body></html>'
         h1 = get_h1_from_html(input_body) # returns the h1 from html input
         expected = "Test Title"
         self.assertEqual(h1, expected) # Test 1, string match
+
+    def test_get_h1_from_html_present(self):
+        input_body = '<html><body><h1></h1></body></html>'
+        actual = get_h1_from_html(input_body)
+        expected = None
+        self.assertEqual(actual, expected)
 
     def test_get_first_paragraph_from_html(self):
         input_body = """
