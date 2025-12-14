@@ -1,13 +1,14 @@
 from urllib.parse import urlparse, urljoin
 from bs4 import BeautifulSoup
 
+# 2/3 tests written
 def normalize_url(url):
     # remove protocol/scheme
     parsed = urlparse(url)
 
     # concat the netloc and the path
     normalized = parsed.netloc + parsed.path
-    return normalized
+    return normalized.lower()
 
 def get_h1_from_html(html):
     # return the text from h1
@@ -38,6 +39,7 @@ def get_images_from_html(html, base_url):
         links.append(base_url + link.get("src")) # grab the src attribute (rel path)
     return links
 
+# 1/3 tests written
 def extract_page_data(html, page_url):
     soup = BeautifulSoup(html, "html.parser")
 
