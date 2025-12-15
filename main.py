@@ -61,7 +61,10 @@ def extract_page_data(html, page_url):
 
 if len(sys.argv) < 2:
     print("no website provided")
+    sys.exit(1)
 elif len(sys.argv) > 2:
     print("too many arguments provided")
+    sys.exit(1)
 elif len(sys.argv) == 2:
     print(f"starting crawl of: {sys.argv[1]}")
+    sys.exit(0)
