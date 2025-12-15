@@ -62,8 +62,25 @@ def extract_page_data(html, page_url):
 
 # try this on https://wagslane.dev
 def get_html(url):
-    resp = requests.get(url, headers={"User-Agent": "BootCrawler/1.0"})
-    print(resp)
+    resp = requests.get(url, headers={"User-Agent": "FootCrawler/1.0"})
+
+    # status code handling
+    if resp.status_code >= 400 and resp.status_code < 500:
+        print(f"Error 4xx: {resp.status_code}")
+        sys.exit(1)
+    elif not resp.headers.get('Content-Type').startswith('text/html'):
+        # if Content-Type is NOT text/html
+        print(f"Error: Content-Type not text/html")
+        print(f"Content-Type is: {resp.headers.get('Content-Type')}")
+        sys.exit(1)
+    elif resp.status_code > 300:
+        print(f"Error: {resp.status_code}")
+        sys.exit(1)
+    else:
+        # print the HTML, exit.
+        print(resp.text)
+        sys.exit(0)
+
 
 ### COMMAND LINE STUFF ###
 if len(sys.argv) < 2:
