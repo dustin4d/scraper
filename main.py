@@ -1,6 +1,7 @@
 from urllib.parse import urlparse, urljoin
 from bs4 import BeautifulSoup
 import sys
+import requests
 
 # 3/3 tests written
 def normalize_url(url):
@@ -59,6 +60,12 @@ def extract_page_data(html, page_url):
 
     return data
 
+# try this on https://wagslane.dev
+def get_html(url):
+    resp = requests.get(url, headers={"User-Agent": "BootCrawler/1.0"})
+    print(resp)
+
+### COMMAND LINE STUFF ###
 if len(sys.argv) < 2:
     print("no website provided")
     sys.exit(1)
@@ -67,4 +74,5 @@ elif len(sys.argv) > 2:
     sys.exit(1)
 elif len(sys.argv) == 2:
     print(f"starting crawl of: {sys.argv[1]}")
+    get_html(sys.argv[1])
     sys.exit(0)
