@@ -14,7 +14,7 @@ def normalize_url(url):
     else:
         return normalized.lower()
 
-# 0/3 tests written
+# 2/3 tests written
 def get_h1_from_html(html):
     # return the text from h1, then make the bs4 object into a str
     data = BeautifulSoup(html, 'html.parser')
