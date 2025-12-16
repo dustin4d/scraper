@@ -82,7 +82,29 @@ def get_html(url):
         sys.exit(0)
 
 def crawl_page(base_url, current_url=None, page_data=None):
-    pass
+    base_domain = urlparse(base_url).netloc
+    current_domain = urlparse(current_url).netloc
+
+    # TODO: base url domain == current_url. if not, return.
+    # this doesn't work recursively.
+    if base_domain != current_domain:
+        print("Domain mismatch. Stop crawling.")
+        return
+    else:
+        print("Domain match. Continue crawling.")
+
+    # get normalized current_url
+    current_url_normalized = normalize_url(current_url)
+
+    # check if page has already been crawled
+
+    # Get the HTML from the current URL
+
+    # if above get_html succeeds, use extract_page_data() and add to the `page_data` dict.
+    
+    # get all URLs from response body obj
+
+    # recursively crawl each page returned from get_all_urls()
 
 ### COMMAND LINE STUFF ###
 if len(sys.argv) < 2:
@@ -93,5 +115,6 @@ elif len(sys.argv) > 2:
     sys.exit(1)
 elif len(sys.argv) == 2:
     print(f"starting crawl of: {sys.argv[1]}")
-    get_html(sys.argv[1])
+#    get_html(sys.argv[1])
+    crawl_page(sys.argv[1])
     sys.exit(0)
