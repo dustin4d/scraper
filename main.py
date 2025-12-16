@@ -81,6 +81,8 @@ def get_html(url):
         print(resp.text)
         sys.exit(0)
 
+def crawl_page(base_url, current_url=None, page_data=None):
+    pass
 
 ### COMMAND LINE STUFF ###
 if len(sys.argv) < 2:
