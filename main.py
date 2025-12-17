@@ -82,16 +82,21 @@ def get_html(url):
         sys.exit(0)
 
 def crawl_page(base_url, current_url=None, page_data=None):
+    # grab the domains
     base_domain = urlparse(base_url).netloc
-    current_domain = urlparse(current_url).netloc
+    if current_url == None: # initial run
+        current_domain = base_domain
+    else:
+        # set current_domain to network location (domain)
+        current_domain = urlparse(current_url).netloc
 
-    # TODO: base url domain == current_url. if not, return.
-    # this doesn't work recursively.
-    if base_domain != current_domain:
+    print(f"Base domain: {base_domain}")
+    print(f"Current domain: {current_domain}")
+
+    # check domain is from base_url. if not, return.
+    if current_domain != base_domain:
         print("Domain mismatch. Stop crawling.")
         return
-    else:
-        print("Domain match. Continue crawling.")
 
     # get normalized current_url
     current_url_normalized = normalize_url(current_url)
