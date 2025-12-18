@@ -1,5 +1,5 @@
 import unittest     # import python's unit testing framework
-from crawl import ( # import functions from `crawl.py`
+from main import ( # import functions from `crawl.py`
     normalize_url,
     get_h1_from_html,
     get_first_paragraph_from_html,
@@ -7,21 +7,6 @@ from crawl import ( # import functions from `crawl.py`
     get_images_from_html,
     extract_page_data,
 )
-
-dummy_html = """
-        <html>
-            <body>
-                <main>
-                    <a href="https://chatgpt.com/">ChatGPT</a>
-                    <img src="chatgpt.jpg">
-                    <a href="https://claude.ai/">Claude</a>
-                    <img src="claude.jpg">
-                    <a href="https://grok.com/">Grok</a>
-                    <img src="grok.jpg">
-                </main>
-            </body>
-        </html>
-        """
 
 class TestCrawl(unittest.TestCase): # create test obj, inherit from `unittest`'s TestCase obj
     # uses the `normalize_url()` fn to test an input URL against a normalized URL `expected`
