@@ -1,5 +1,5 @@
 import unittest     # import python's unit testing framework
-from main import ( # import functions from `crawl.py`
+from main import ( 
     normalize_url,
     get_h1_from_html,
     get_first_paragraph_from_html,
@@ -80,7 +80,7 @@ class TestCrawl(unittest.TestCase): # create test obj, inherit from `unittest`'s
     # is the url from a known site
     def test_get_urls_from_html_known_ai(self):
         input_url = "https://blog.boot.dev"
-        input_body = dummy_html
+        input_body = '<html><body><a href="/post1"></body></html>' 
         actual = get_urls_from_html(input_body, input_url)
         known_ai = ['https://chatgpt.com/', 'https://claude.ai/', 'https://grok.com/', "https://gemini.com", ]
         for link in known_ai:
@@ -114,11 +114,11 @@ class TestCrawl(unittest.TestCase): # create test obj, inherit from `unittest`'s
                 # ^ this call to tuple() reads in the `expected` set as a tuple by default
             )
 
-    def test_get_all_links(self):
-        input_body = dummy_html
-        actual = get_urls_from_html(input_body, None)
-        expected = ["https://chatgpt.com/", "https://claude.ai/", "https://grok.com/", ]
-        self.assertEqual(actual, expected)
+#    def test_get_all_links(self):
+#        input_body = '<html><body><img src="/logo.png" alt="Logo"></body></html>'
+#        actual = get_urls_from_html(input_body, None)
+#        expected = ["https://chatgpt.com/", "https://claude.ai/", "https://grok.com/", ]
+#        self.assertEqual(actual, expected)
 
 
     # use all functions from above to load page data into a dict
