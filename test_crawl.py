@@ -6,6 +6,7 @@ from main import (
     get_urls_from_html,
     get_images_from_html,
     extract_page_data,
+    main,
 )
 
 class TestCrawl(unittest.TestCase): # create test obj, inherit from `unittest`'s TestCase obj
@@ -144,8 +145,9 @@ class TestCrawl(unittest.TestCase): # create test obj, inherit from `unittest`'s
     # tests are defined by inputs and outputs, based on function signature
     # writing prod code comes after
     # test code does not touch the inside of the fn
-    def test_crawl_page(self):
-       pass 
+    def test_crawl(self):
+        pass
+
 
 if __name__ == "__main__":
     unittest.main()
