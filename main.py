@@ -62,7 +62,7 @@ def extract_page_data(html, page_url):
 
 # try this on https://wagslane.dev
 def get_html(url):
-    resp = requests.get(url, headers={"User-Agent": "FootCrawler/1.0"})
+    resp = requests.get(url, headers={"User-Agent": "BootCrawler/1.0"})
 
     # status code handling
     if resp.status_code >= 400 and resp.status_code < 500:
@@ -112,13 +112,16 @@ def crawl_page(base_url, current_url=None, page_data=None):
     # recursively crawl each page returned from get_all_urls()
 
 ### COMMAND LINE STUFF ###
-if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print("no website provided")
-        sys.exit(1)
-    elif len(sys.argv) > 2:
-        print("too many arguments provided")
-        sys.exit(1)
-    else:
-        print(f"starting crawl of: {sys.argv[1]}")
-        crawl_page(sys.argv[1])
+def main():
+    if __name__ == "__main__":
+        if len(sys.argv) < 2:
+            print("no website provided")
+            sys.exit(1)
+        elif len(sys.argv) > 2:
+            print("too many arguments provided")
+            sys.exit(1)
+        else:
+            print(f"starting crawl of: {sys.argv[1]}")
+            crawl_page(sys.argv[1])
+
+main()

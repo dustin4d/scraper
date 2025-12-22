@@ -141,8 +141,11 @@ class TestCrawl(unittest.TestCase): # create test obj, inherit from `unittest`'s
         }
         self.assertEqual(actual, expected)
 
-    def test_extract_page_data_adv(self):
-        pass
+    # tests are defined by inputs and outputs, based on function signature
+    # writing prod code comes after
+    # test code does not touch the inside of the fn
+    def test_crawl_page(self):
+       pass 
 
 if __name__ == "__main__":
     unittest.main()
