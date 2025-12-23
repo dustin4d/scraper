@@ -1,12 +1,11 @@
 import unittest     # import python's unit testing framework
-from main import ( 
+from crawl import ( 
     normalize_url,
     get_h1_from_html,
     get_first_paragraph_from_html,
     get_urls_from_html,
     get_images_from_html,
     extract_page_data,
-    main,
 )
 
 class TestCrawl(unittest.TestCase): # create test obj, inherit from `unittest`'s TestCase obj

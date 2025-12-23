@@ -79,37 +79,45 @@ def get_html(url):
     else:
         # print the HTML, exit.
         print(resp.text)
+        return resp.text
         sys.exit(0)
 
 def crawl_page(base_url, current_url=None, page_data=None):
-    # grab the domains
-    base_domain = urlparse(base_url).netloc
-    if current_url == None: # initial run
-        current_domain = base_domain
-    else:
-        # set current_domain to network location (domain)
-        current_domain = urlparse(current_url).netloc
+    # instantiate data stores
+    if current_url == None:
+        current_url = base_url
+    if page_data == None:
+        page_data = {}
 
-    print(f"Base domain: {base_domain}")
-    print(f"Current domain: {current_domain}")
+    # get url objects
+    # if path doesn't match, return empty dict
+    base_url_obj = urlparse(base_url)
+    current_url_obj = urlparse(current_url)
+    if current_url_obj.netloc != base_url_obj.netloc:
+        return page_data
 
-    # check domain is from base_url. if not, return.
-    if current_domain != base_domain:
-        print("Domain mismatch. Stop crawling.")
-        return
+    # normalize the url
+    # if it's already in the dict, return it (go next)
+    normalized_url = normalize_url(current_url)
+    if normalized_url in page_data:
+        return page_data
 
-    # get normalized current_url
-    current_url_normalized = normalize_url(current_url)
+    # start crawling the page
+    # if it's empty, return empty dict page_data
+    print(f"Crawling {current_url}")
+    html = get_html(current_url)
+    if html == None:
+        return page_data
 
-    # check if page has already been crawled
+    # nest the page's metadata inside of the main dict that stores all the urls
+    page_info = extract_page_data(html, current_url) 
+    page_data[normalized_url] = page_info
 
-    # Get the HTML from the current URL
+    next_urls = get_urls_from_html(html, base_url)
+    for next_url in next_urls:
+        page_data = crawl_page(base_url, next_url, page_data) # recursion!
 
-    # if above get_html succeeds, use extract_page_data() and add to the `page_data` dict.
-    
-    # get all URLs from response body obj
-
-    # recursively crawl each page returned from get_all_urls()
+    return page_data
 
 ### COMMAND LINE STUFF ###
 def main():
