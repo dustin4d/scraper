@@ -124,7 +124,7 @@ def crawl_page(base_url, current_url=None, page_data=None):
     page_info = extract_page_data(html, current_url) 
     page_data[normalized_url] = page_info
 
-    # 
+    # grab URLs from current page, loop through, push found HTML to page_data dict, then return it... recursively.
     next_urls = get_urls_from_html(html, base_url)
     for next_url in next_urls:
         page_data = crawl_page(base_url, next_url, page_data) # recursion!
