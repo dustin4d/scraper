@@ -62,11 +62,13 @@ def extract_page_data(html, page_url):
 
 # try this on https://wagslane.dev
 def get_html(url):
-    resp = requests.get(url, headers={"User-Agent": "BootCrawler/1.0"})
-
     # TODO: rewrite this function in try/except
     # use try/except here, since this is a network request.
-    # status code handling
+    try:
+        resp = requests.get(url)
+    except Exception as e:
+        raise Exception(f"Network error while trying to fetch {url}: {e}")
+
     if resp.status_code >= 400 and resp.status_code < 500:
         print(f"Error 4xx: {resp.status_code}")
         # dont exit if it fails
