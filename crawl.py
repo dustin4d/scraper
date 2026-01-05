@@ -64,18 +64,20 @@ def extract_page_data(html, page_url):
 def get_html(url):
     resp = requests.get(url, headers={"User-Agent": "BootCrawler/1.0"})
 
+    # TODO: rewrite this function in try/except
+    # use try/except here, since this is a network request.
     # status code handling
     if resp.status_code >= 400 and resp.status_code < 500:
         print(f"Error 4xx: {resp.status_code}")
-        sys.exit(1)
+        # dont exit if it fails
+        
     elif not resp.headers.get('Content-Type').startswith('text/html'):
         # if Content-Type is NOT text/html
         print(f"Error: Content-Type not text/html")
         print(f"Content-Type is: {resp.headers.get('Content-Type')}")
-        sys.exit(1)
+
     elif resp.status_code > 300:
         print(f"Error: {resp.status_code}")
-        sys.exit(1)
     else:
         # print the HTML, exit.
         print(resp.text)
