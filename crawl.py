@@ -60,31 +60,27 @@ def extract_page_data(html, page_url):
 
     return data
 
-# try this on https://wagslane.dev
+# initiate the network request to retrieve the HTML
 def get_html(url):
-    # TODO: rewrite this function in try/except
-    # use try/except here, since this is a network request.
+    # try/except on the network request
     try:
         resp = requests.get(url)
     except Exception as e:
         raise Exception(f"Network error while trying to fetch {url}: {e}")
-
-    if resp.status_code >= 400 and resp.status_code < 500:
-        print(f"Error 4xx: {resp.status_code}")
-        # dont exit if it fails
-        
-    elif not resp.headers.get('Content-Type').startswith('text/html'):
-        # if Content-Type is NOT text/html
-        print(f"Error: Content-Type not text/html")
-        print(f"Content-Type is: {resp.headers.get('Content-Type')}")
-
-    elif resp.status_code > 300:
-        print(f"Error: {resp.status_code}")
+    
+    # handle invalid status codes
+    if resp.status_code > 399:
+        raise Exception(f"Got HTTP error {resp.status_code}, {resp.reason}")
     else:
-        # print the HTML, exit.
-        print(resp.text)
-        return resp.text
-        sys.exit(0)
+        print(f"Got {resp.status_code}: OKAY. Continuing.")
+    
+    # content type checking. if it's not html, raise an exception
+    content_type = resp.headers.get("content-type", "")
+    if 'text/html' not in content_type:
+        raise Exception(f"Got non-HTML response: {content_type}")
+
+    # output the html response from the response obj
+    return resp.text
 
 def crawl_page(base_url, current_url=None, page_data=None):
     # instantiate data stores
