@@ -25,10 +25,10 @@ def get_h1_from_html(html):
 
 
 def get_first_paragraph_from_html(html):
-    data = BeautifulSoup(html, "html.parser")
-    actual = data.find("p").get_text()
-    return actual
-
+    soup = BeautifulSoup(html, "html.parser")
+    first_p = soup.find("p")
+    return first_p.get_text() if first_p else None
+    
 # return an un-normalized list of all the URLs found within the HTML
 def get_urls_from_html(html, base_url):
     # TODO: handle relative links -- write a unittest `test_get_urls_from_html_relative`
@@ -113,6 +113,7 @@ def crawl_page(base_url, current_url=None, page_data=None):
     page_info = extract_page_data(html, current_url) 
     page_data[normalized_url] = page_info
 
+    # 
     next_urls = get_urls_from_html(html, base_url)
     for next_url in next_urls:
         page_data = crawl_page(base_url, next_url, page_data) # recursion!
