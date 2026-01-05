@@ -68,11 +68,11 @@ def get_html(url):
     except Exception as e:
         raise Exception(f"Network error while trying to fetch {url}: {e}")
     
-    # handle invalid status codes
+    # handle status codes
     if resp.status_code > 399:
         raise Exception(f"Got HTTP error {resp.status_code}, {resp.reason}")
     else:
-        print(f"Got {resp.status_code}: OKAY. Continuing.")
+        print(f"Got {resp.status_code}: OK. Crawling.")
     
     # content type checking. if it's not html, raise an exception
     content_type = resp.headers.get("content-type", "")
@@ -81,6 +81,17 @@ def get_html(url):
 
     # output the html response from the response obj
     return resp.text
+
+# wrapper function for safe execution of Exceptions
+# return None allows the recursion to work. Without it, Exceptions will crash execution
+def safe_get_html(url):
+    try:
+        # take the standard get_html function to retrieve the HTML
+        return get_html(url)
+    except Exception as e:
+        # if an Exception object is raised, it gets printed, and returns None. recursion continues.
+        print(f"EXCEPTION: {e}")
+        return None
 
 def crawl_page(base_url, current_url=None, page_data=None):
     # instantiate data stores
@@ -105,7 +116,7 @@ def crawl_page(base_url, current_url=None, page_data=None):
     # start crawling the page
     # if it's empty, return empty dict page_data
     print(f"Crawling {current_url}")
-    html = get_html(current_url)
+    html = safe_get_html(current_url)
     if html == None:
         return page_data
 
