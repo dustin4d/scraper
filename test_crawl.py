@@ -7,6 +7,7 @@ from main import (
     get_images_from_html,
     extract_page_data,
     main,
+    AsyncCrawler
 )
 
 class TestCrawl(unittest.TestCase): # create test obj, inherit from `unittest`'s TestCase obj
@@ -142,10 +143,22 @@ class TestCrawl(unittest.TestCase): # create test obj, inherit from `unittest`'s
         }
         self.assertEqual(actual, expected)
 
-    # tests are defined by inputs and outputs, based on function signature
-    # writing prod code comes after
-    # test code does not touch the inside of the fn
-    
+    # create test fn for AsyncCrawler's base_domain variable
+    def test_AsyncCrawler_base_domain(self):
+        test_cases = [
+            ("https://example.com/poop/shit/fuck", "example.com"),
+            ("http://example.com", "example.com"),
+            ("https://www.github.com/explore", "github.com"),
+            ("http://subdomain.example.co.uk/path", "example.co.uk"),
+            ("https://localhost:8000/dashboard", "localhost"),
+            ("http://deep.nested.site.org", "site.org"),
+        ]
+
+        # TODO: wtf does this even do
+        for url, expected in test_cases: # loop over the tuples in test_cases
+            with self.subTest(url=url): # context manager
+                crawler = AsyncCrawler(base_url=url, page_data={}) # instantiate the AsyncCrawler class, provide the base_url from tests
+                self.assertEqual(crawler.base_domain, expected) # test the base_domain == expected
 
 
 if __name__ == "__main__":

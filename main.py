@@ -27,6 +27,9 @@ class AsyncCrawler:
         # semaphore
         # session
 
+        # how can I verify this value in isolation?
+        self.base_domain = urlparse(base_url).hostname
+
 # 3/3 tests written
 def normalize_url(url):
     # remove protocol/scheme
