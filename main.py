@@ -2,6 +2,19 @@ from urllib.parse import urlparse, urljoin
 from bs4 import BeautifulSoup
 import sys
 import requests
+import asyncio
+import aiohttp
+
+class AsyncCrawler:
+    """
+    A class to manage shared state and resources
+    """
+    def __init__(
+            self,
+            base_url: str,
+            max_concurrency
+    ):
+        lock = asyncio.Lock
 
 # 3/3 tests written
 def normalize_url(url):
