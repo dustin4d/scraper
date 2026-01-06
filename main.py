@@ -12,9 +12,15 @@ class AsyncCrawler:
     def __init__(
             self,
             base_url: str,
-            max_concurrency
+            page_data: dict[str, dict],
+            max_concurrency: int = 10,
     ):
-        lock = asyncio.Lock
+        """
+        Args:
+            base_url : starting URL from which the crawl will begin
+            page_data : data store of pages that have been crawled via recursion function crawl_page()
+            max_concurrency : the limit of HTTP requests going out at once (default = 10)
+        """
 
 # 3/3 tests written
 def normalize_url(url):
