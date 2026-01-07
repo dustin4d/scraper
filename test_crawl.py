@@ -157,11 +157,40 @@ class TestCrawl(unittest.TestCase): # create test obj, inherit from `unittest`'s
 
         for url, expected in test_cases: # loop over the tuples in test_cases
             with self.subTest(url=url): # unittest's context manager for testing in a loop
-                crawler = AsyncCrawler(base_url=url, page_data={}) # instantiate the AsyncCrawler class, provide the base_url from tests
+                crawler = AsyncCrawler(base_url=url) # instantiate the AsyncCrawler class, provide the base_url from tests
                 self.assertEqual(crawler.base_domain, expected) # test the base_domain == expected
 
-    def test_AsyncCrawler_page_data(self):
-        pass
+    def test_AsyncCrawler_page_data_init(self):
+        # test to check if page_data is initialized as empty
+        crawler = AsyncCrawler("https://example.com/poop/shit/fuck")
 
+       # Check type and initial state
+        self.assertIsInstance(crawler.page_data, dict)
+        self.assertEqual(len(crawler.page_data), 0)
+        self.assertEqual(crawler.page_data, {})
+
+
+    def test_AsyncCrawler_page_data_info(self):
+        crawler = AsyncCrawler("https://example.com/")
+
+        test_cases = {
+            # url                   # info
+            "https://example.com/": {"status_code": 200, "title": "Home"},
+            "https://example.com/blog": {"status_code": 200, "title": "Blog"},
+            "https://example.com/404": {"status_code": 404, "title": "Not Found"},
+        }
+
+        # add data to the test's crawler object
+        # loop through, grab the URL and the info. create a key of url and value of info
+        for url, info in test_cases.items():
+            crawler.page_data[url] = info
+
+        # test multiple cases
+        for url, expected in test_cases.items():
+            with self.subTest(url=url):
+                self.assertIn(url, crawler.page_data)
+                self.assertEqual(crawler.page_data[url]["status_code"], expected["status_code"])
+                self.assertEqual(crawler.page_data[url]["title"], expected["title"])
+        
 if __name__ == "__main__":
     unittest.main()

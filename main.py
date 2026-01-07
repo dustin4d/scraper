@@ -27,7 +27,7 @@ class AsyncCrawler:
         # session
         
         # primary data store for crawling, keyed with normalized URL (type hinting)
-        self.page_data: dict[str, dict]
+        self.page_data: dict[str, dict] = {}
 
         # TODO: Add support for country-code domains ex. swimming.co.uk
         # get the hostname
