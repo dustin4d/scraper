@@ -154,7 +154,6 @@ class TestCrawl(unittest.TestCase): # create test obj, inherit from `unittest`'s
             ("http://deep.nested.site.org", "site.org"),
         ]
 
-        # TODO: wtf does this even do
         for url, expected in test_cases: # loop over the tuples in test_cases
             with self.subTest(url=url): # unittest's context manager for testing in a loop
                 crawler = AsyncCrawler(base_url=url, page_data={}) # instantiate the AsyncCrawler class, provide the base_url from tests
