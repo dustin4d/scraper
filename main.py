@@ -22,13 +22,19 @@ class AsyncCrawler:
             max_concurrency : the limit of HTTP requests going out at once (default = 10)
         """
         # TODO:
-        # base_domain
         # lock (asyncio.Lock)
         # semaphore
         # session
 
-        # how can I verify this value in isolation?
-        self.base_domain = urlparse(base_url).hostname
+        # TODO: fix this
+        ## test case written: FAILING 1/6
+        # domains like example.co.uk don't work because -3 needed. too tired
+        # get the hostname
+        hostname = urlparse(base_url).hostname
+        # split into parts
+        parts = hostname.split('.')
+        # get the last two splits of the remaining str
+        self.base_domain = '.'.join(parts[-2:])
 
 # 3/3 tests written
 def normalize_url(url):
