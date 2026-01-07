@@ -10,9 +10,9 @@ class AsyncCrawler:
     A class to manage shared state and resources
     """
     def __init__(
+            # these are expected inputs when the object is created
             self,
             base_url: str,
-            page_data: dict[str, dict],
             max_concurrency: int = 10,
     ):
         """
@@ -25,6 +25,9 @@ class AsyncCrawler:
         # lock (asyncio.Lock)
         # semaphore
         # session
+        
+        # primary data store for crawling, keyed with normalized URL (type hinting)
+        self.page_data: dict[str, dict]
 
         # TODO: Add support for country-code domains ex. swimming.co.uk
         # get the hostname

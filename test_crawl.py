@@ -160,6 +160,8 @@ class TestCrawl(unittest.TestCase): # create test obj, inherit from `unittest`'s
                 crawler = AsyncCrawler(base_url=url, page_data={}) # instantiate the AsyncCrawler class, provide the base_url from tests
                 self.assertEqual(crawler.base_domain, expected) # test the base_domain == expected
 
+    def test_AsyncCrawler_page_data(self):
+        pass
 
 if __name__ == "__main__":
     unittest.main()
