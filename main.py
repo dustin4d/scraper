@@ -26,9 +26,7 @@ class AsyncCrawler:
         # semaphore
         # session
 
-        # TODO: fix this
-        ## test case written: FAILING 1/6
-        # domains like example.co.uk don't work because -3 needed. too tired
+        # TODO: Add support for country-code domains ex. swimming.co.uk
         # get the hostname
         hostname = urlparse(base_url).hostname
         # split into parts
@@ -36,7 +34,6 @@ class AsyncCrawler:
         # get the last two splits of the remaining str
         self.base_domain = '.'.join(parts[-2:])
 
-# 3/3 tests written
 def normalize_url(url):
     # remove protocol/scheme
     parsed = urlparse(url)
@@ -49,13 +46,11 @@ def normalize_url(url):
     else:
         return normalized.lower()
 
-# 2/3 tests written
 def get_h1_from_html(html):
     # return the text from h1, then make the bs4 object into a str
     data = BeautifulSoup(html, 'html.parser')
     h1 = data.h1.string
     return h1
-
 
 def get_first_paragraph_from_html(html):
     soup = BeautifulSoup(html, "html.parser")
@@ -79,7 +74,6 @@ def get_images_from_html(html, base_url):
         links.append(base_url + link.get("src")) # grab the src attribute (rel path)
     return links
 
-# 1/3 tests written
 def extract_page_data(html, page_url):
     soup = BeautifulSoup(html, "html.parser")
 
