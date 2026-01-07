@@ -156,7 +156,7 @@ class TestCrawl(unittest.TestCase): # create test obj, inherit from `unittest`'s
 
         # TODO: wtf does this even do
         for url, expected in test_cases: # loop over the tuples in test_cases
-            with self.subTest(url=url): # context manager
+            with self.subTest(url=url): # unittest's context manager for testing in a loop
                 crawler = AsyncCrawler(base_url=url, page_data={}) # instantiate the AsyncCrawler class, provide the base_url from tests
                 self.assertEqual(crawler.base_domain, expected) # test the base_domain == expected
 
