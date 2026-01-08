@@ -29,6 +29,9 @@ class AsyncCrawler:
         # primary data store for crawling, keyed with normalized URL (type hinting)
         self.page_data: dict[str, dict] = {}
 
+        # set max concurrency (default = 10)
+        self.max_concurrency = max_concurrency
+
         # TODO: Add support for country-code domains ex. swimming.co.uk
         # get the hostname
         hostname = urlparse(base_url).hostname

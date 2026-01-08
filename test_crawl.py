@@ -144,7 +144,7 @@ class TestCrawl(unittest.TestCase): # create test obj, inherit from `unittest`'s
         self.assertEqual(actual, expected)
 
     # create test fn for AsyncCrawler's base_domain variable
-    # TODO: handle country code domains
+    # TODO: handle country code domains, pip install tldextract
     def test_AsyncCrawler_base_domain(self):
         test_cases = [
             ("https://example.com/poop/shit/fuck", "example.com"),
@@ -169,7 +169,6 @@ class TestCrawl(unittest.TestCase): # create test obj, inherit from `unittest`'s
         self.assertEqual(len(crawler.page_data), 0)
         self.assertEqual(crawler.page_data, {})
 
-
     def test_AsyncCrawler_page_data_info(self):
         crawler = AsyncCrawler("https://example.com/")
 
@@ -191,6 +190,11 @@ class TestCrawl(unittest.TestCase): # create test obj, inherit from `unittest`'s
                 self.assertIn(url, crawler.page_data)
                 self.assertEqual(crawler.page_data[url]["status_code"], expected["status_code"])
                 self.assertEqual(crawler.page_data[url]["title"], expected["title"])
+
+    # TODO: a test for max_concurrency
+    def test_AsyncCrawler_max_concurrency_default(self):
+        crawler = AsyncCrawler("https://example.com/")
+        self.assertEqual(crawler.max_concurrency, 10)
         
 if __name__ == "__main__":
     unittest.main()
