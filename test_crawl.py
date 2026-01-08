@@ -196,5 +196,14 @@ class TestCrawl(unittest.TestCase): # create test obj, inherit from `unittest`'s
         crawler = AsyncCrawler("https://example.com/")
         self.assertEqual(crawler.max_concurrency, 10)
         
+    def test_AsyncCrawler_max_concurrency_nonint(self):
+        # test that max_concurrency raises TypeError when non-int is passed
+        with self.assertRaises(ValueError):
+            AsyncCrawler("https://example.com/", max_concurrency="not_an_int")
+        with self.assertRaises(ValueError):
+            AsyncCrawler("https://example.com/", max_concurrency=-2)
+        with self.assertRaises(ValueError):
+            AsyncCrawler("https://example.com/", max_concurrency=None)
+
 if __name__ == "__main__":
     unittest.main()

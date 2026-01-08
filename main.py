@@ -29,7 +29,16 @@ class AsyncCrawler:
         # primary data store for crawling, keyed with normalized URL (type hinting)
         self.page_data: dict[str, dict] = {}
 
-        # set max concurrency (default = 10)
+        # Handle non-integer inputs for max_concurrency
+        try:
+            max_concurrency = int(max_concurrency)
+        except (ValueError, TypeError):
+            raise ValueError("max_concurrency must be an integer")
+
+        # Ensure max_concurrency is positive
+        if max_concurrency <= 0:
+            raise ValueError("max_concurrency must be a positive integer")
+        
         self.max_concurrency = max_concurrency
 
         # TODO: Add support for country-code domains ex. swimming.co.uk
