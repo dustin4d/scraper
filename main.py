@@ -22,12 +22,14 @@ class AsyncCrawler:
             max_concurrency : the limit of HTTP requests going out at once (default = 10)
         """
         # TODO:
-        # lock (asyncio.Lock)
         # semaphore
         # session
-        
+
         # primary data store for crawling, keyed with normalized URL (type hinting)
         self.page_data: dict[str, dict] = {}
+
+        # lock to protect page_data from concurrent access
+        self.lock = asyncio.Lock()
 
         # Handle non-integer inputs for max_concurrency
         try:
